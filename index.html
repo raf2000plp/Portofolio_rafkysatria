@@ -1,0 +1,573 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio | Rafky Satria</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+     background:
+    linear-gradient(rgba(0,0,0,0.65),
+                    rgba(0,0,0,0.75)),
+    url("background.jpg");
+
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+background-attachment: fixed;
+    color: white;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
+
+:root {
+    --green: #c5f467;
+    --dark: #10120f;
+}
+
+.slide {
+    position: absolute;
+    inset: 0;
+    padding: 70px 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    opacity: 0;
+    transform: translateX(50px);
+    pointer-events: none;
+    transition: .5s ease;
+}
+
+.slide.active {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+}
+
+.tag {
+    color: var(--green);
+    letter-spacing: 3px;
+    font-size: 13px;
+    margin-bottom: 18px;
+}
+
+h1 {
+    font-size: clamp(38px, 7vw, 75px);
+    margin-bottom: 20px;
+}
+
+h1 span, h2 span {
+    color: var(--green);
+}
+
+h2 {
+    font-size: 38px;
+    margin-bottom: 20px;
+}
+
+p {
+    color: #b8bdb3;
+    line-height: 1.8;
+    max-width: 600px;
+}
+
+.profile {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid var(--green);
+    margin-bottom: 25px;
+    box-shadow: 0 0 25px #c5f46735;
+}
+
+.buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.nav-btn {
+    background: transparent;
+    color: var(--green);
+    border: 1px solid var(--green);
+    padding: 12px 22px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.nav-btn:hover, .nav-btn.active {
+    background: var(--green);
+    color: #10120f;
+    box-shadow: 0 0 15px #c5f46750;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 220px));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.card {
+    padding: 22px;
+    background: #1b2118;
+    border: 1px solid #39442e;
+    border-radius: 15px;
+    transition: .3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: var(--green);
+}
+
+.card h3 {
+    color: var(--green);
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 14px;
+}
+
+.contact-link {
+    display: inline-block;
+    color: var(--green);
+    margin-top: 15px;
+    text-decoration: none;
+}
+
+.bottom-nav {
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    z-index: 10;
+}
+
+.arrow {
+    background: var(--green);
+    color: #10120f;
+    border: none;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+#slideNumber {
+    color: var(--green);
+    font-size: 14px;
+}
+
+/* KARAKTER ANIME */
+.anime-character {
+    position: fixed;
+    width: 370px;
+    max-width: none;
+    right: 0;
+    bottom: 0;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.anime-decor {
+    width: 100%;
+    display: block;
+    mix-blend-mode: screen;
+    cursor: pointer;
+    pointer-events: auto;
+    filter: drop-shadow(0 0 15px #c5f46730);
+    transition: .3s;
+}
+
+.anime-decor:hover {
+    transform: translateY(-8px);
+}
+
+.speech-bubble {
+    position: absolute;
+    right: 55%;
+    bottom: 90%;
+    width: 190px;
+    padding: 13px;
+    border: 1px solid var(--green);
+    border-radius: 15px;
+    background: #1b2118;
+    color: white;
+    font-size: 12px;
+    cursor: pointer;
+    pointer-events: auto;
+    box-shadow: 0 0 15px #c5f46730;
+}
+
+footer {
+    position: fixed;
+    bottom: 12px;
+    left: 20px;
+    color: #777;
+    font-size: 10px;
+}
+
+@media(max-width: 600px) {
+    .slide {
+        padding: 40px 8%;
+        padding-bottom: 130px;
+    }
+
+    h2 {
+        font-size: 30px;
+    }
+
+    .anime-character {
+        width: 260px;
+        max-width: 5vw;
+    }
+
+    .speech-bubble {
+        right: 65%;
+        bottom: 60%;
+        width: 145px;
+        font-size: 10px;
+    }
+
+    .cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .card {
+        padding: 13px;
+    }
+
+    .bottom-nav {
+        bottom: 15px;
+
+    }
+  
+/* RIWAYAT PENDIDIKAN */
+.education-list {
+    position: relative;
+    margin-top: 25px;
+    max-width: 550px;
+    padding-left: 25px;
+}
+
+.education-list::before {
+    content: "";
+    position: absolute;
+    left: 7px;
+    top: 10px;
+    bottom: 15px;
+    width: 2px;
+    background: #c5f467;
+}
+
+.edu-item {
+    position: relative;
+    margin-bottom: 15px;
+    padding: 12px 16px;
+    background: #1b2118;
+    border: 1px solid #39442e;
+    border-radius: 12px;
+}
+
+.edu-dot {
+    position: absolute;
+    left: -24px;
+    top: 20px;
+    width: 13px;
+    height: 13px;
+    background: #c5f467;
+    border-radius: 50%;
+}
+
+.edu-level {
+    color: #c5f467;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+.edu-info h3 {
+    color: white;
+    font-size: 15px;
+    margin-top: 6px;
+}
+
+.edu-info p {
+    color: #b8bdb3;
+    font-size: 12px;
+    margin-top: 5px;
+}
+/* TAMPILAN KOMPUTER */
+@media (min-width: 601px) {
+    .education-list {
+        width: 550px;
+        max-width: 60%;
+        margin-top: 30px;
+    }
+
+    .edu-item {
+        margin-bottom: 20px;
+        padding: 18px 22px;
+    }
+
+    .edu-info h3 {
+        font-size: 18px;
+    }
+
+    .speech-bubble {
+        width: 170px;
+        right: 65%;
+        bottom: 70%;
+    }
+}  
+
+}
+  
+</style>
+</head>
+
+<body>
+
+<!-- SLIDE 1 -->
+<section class="slide active">
+    <div class="tag">WELCOME TO MY PORTFOLIO</div>
+
+    <img src="Rafky.jpg" class="profile" alt="Foto Profil">
+
+    <h1>RAFКY <span>SATRIA</span></h1>
+    <p>Student | Future Developer</p>
+    <p>Selamat datang di website portofolio pribadi saya.</p>
+
+    <div class="buttons">
+        <button class="nav-btn" onclick="goToSlide(1)">
+            Tentang Saya →
+        </button>
+    </div>
+</section>
+
+<!-- SLIDE 2 -->
+<section class="slide">
+    <div class="tag">01 / ABOUT ME</div>
+    <h2>Tentang <span>Saya</span></h2>
+
+    <p>
+        Halo! Nama saya Rafky Satria.
+        Saya adalah seorang pelajar di SMKN 1 BANGKINANG KOTA yang tertarik
+        dengan dunia teknologi, desain, dan pemrograman.
+        Saya senang mempelajari hal baru serta mencoba
+        membuat berbagai proyek kreatif
+    </p>
+</section>
+
+<!-- SLIDE 3 -->
+<section class="slide">
+    <div class="tag">02 / EDUCATION</div>
+    <h2>Riwayat <span>Pendidikan</span></h2>
+
+    <div class="education-list">
+
+        <div class="edu-item">
+            <div class="edu-dot"></div>
+            <div class="edu-info">
+                <span class="edu-level">TAMAN KANAK-KANAK</span>
+                <h3>TK Aisyah Pulau Payung</h3>
+            </div>
+        </div>
+
+        <div class="edu-item">
+            <div class="edu-dot"></div>
+            <div class="edu-info">
+                <span class="edu-level">SEKOLAH DASAR</span>
+                <h3>SD Muhammadiyah Pulau Payung</h3>
+            </div>
+        </div>
+
+        <div class="edu-item">
+            <div class="edu-dot"></div>
+            <div class="edu-info">
+                <span class="edu-level">SEKOLAH MENENGAH PERTAMA</span>
+                <h3>MTS YPUI Teratak</h3>
+            </div>
+        </div>
+
+        <div class="edu-item">
+            <div class="edu-dot"></div>
+            <div class="edu-info">
+                <span class="edu-level">SEKOLAH MENENGAH KEJURUAN</span>
+                <h3>SMKN 1 Bangkinang Kota</h3>
+                <p>Jurusan PPLG</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- SLIDE 4 -->
+<section class="slide">
+    <div class="tag">03 / MY SKILLS</div>
+    <h2>Keahlian <span>Saya</span></h2>
+
+    <div class="cards">
+        <div class="card">
+            <h3>HTML</h3>
+            <p>Membuat struktur website.</p>
+        </div>
+
+        <div class="card">
+            <h3>CSS</h3>
+            <p>Mendesain tampilan website.</p>
+        </div>
+
+        <div class="card">
+            <h3>JavaScript</h3>
+            <p>Membuat website lebih interaktif.</p>
+        </div>
+
+        <div class="card">
+            <h3>Python</h3>
+            <p>Mempelajari dasar pemrograman.</p>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 5 -->
+<section class="slide">
+    <div class="tag">04 / MY PROJECTS</div>
+    <h2>Proyek <span>Saya</span></h2>
+
+    <div class="cards">
+        <div class="card">
+            <h3>Portfolio Website</h3>
+            <p>Website pribadi untuk memperkenalkan diri.</p>
+        </div>
+
+        <div class="card">
+            <h3>Project HTML</h3>
+            <p>Eksperimen membuat tampilan website.</p>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 6 -->
+<section class="slide">
+    <div class="tag">05 / CONTACT</div>
+    <h2>Hubungi <span>Saya</span></h2>
+
+    <p>Terima kasih telah mengunjungi portofolio saya!</p>
+
+    <a class="contact-link" href="mailto:rafkysatriam889gmail.com">
+        ✉ Email Saya
+    </a>
+</section>
+
+<!-- KARAKTER ANIME -->
+<div class="anime-character">
+    <img src="rikka.png"
+         class="anime-decor"
+         id="animeImage"
+         alt="Karakter Anime">
+
+    <button class="speech-bubble" id="speechBubble">
+        Hai! Selamat datang di portofolioku! 💚
+    </button>
+</div>
+
+<!-- NAVIGASI -->
+<div class="bottom-nav">
+    <button class="arrow" onclick="changeSlide(-1)">‹</button>
+    <span id="slideNumber">01 / 06</span>
+    <button class="arrow" onclick="changeSlide(1)">›</button>
+</div>
+
+<footer>© 2026 RAFKY SATRIA</footer>
+
+<script>
+let currentSlide = 0;
+const slides = document.querySelectorAll(".slide");
+
+function showSlide(index) {
+    if (index < 0 || index >= slides.length) return;
+
+    slides[currentSlide].classList.remove("active");
+    currentSlide = index;
+    slides[currentSlide].classList.add("active");
+
+    document.getElementById("slideNumber").textContent =
+        String(currentSlide + 1).padStart(2, "0") +
+        " / " +
+        String(slides.length).padStart(2, "0");
+}
+
+function changeSlide(direction) {
+    showSlide(currentSlide + direction);
+}
+
+function goToSlide(index) {
+    showSlide(index);
+}
+
+// Interaksi karakter anime
+const messages = [
+    "Hai! Selamat datang di portofolioku! 💚",
+    "Jangan lupa lihat semua slide ya!",
+    "Terima kasih sudah berkunjung!",
+    "Semangat belajar coding! ✨",
+    "Bagaimana portofolioku? 😆"
+];
+
+let messageIndex = 0;
+
+function changeMessage() {
+    messageIndex = (messageIndex + 1) % messages.length;
+    document.getElementById("speechBubble").textContent =
+        messages[messageIndex];
+}
+
+document.getElementById("animeImage")
+    .addEventListener("click", changeMessage);
+
+document.getElementById("speechBubble")
+    .addEventListener("click", changeMessage);
+
+// Navigasi dengan keyboard
+document.addEventListener("keydown", function(event) {
+    if (event.key === "ArrowRight") changeSlide(1);
+    if (event.key === "ArrowLeft") changeSlide(-1);
+});
+
+// Navigasi dengan swipe layar
+let touchStartX = 0;
+
+document.addEventListener("touchstart", function(event) {
+    touchStartX = event.changedTouches[0].screenX;
+}, { passive: true });
+
+document.addEventListener("touchend", function(event) {
+    let touchEndX = event.changedTouches[0].screenX;
+    let distance = touchEndX - touchStartX;
+
+    if (Math.abs(distance) > 80) {
+        changeSlide(distance < 0 ? 1 : -1);
+    }
+}, { passive: true });
+</script>
+
+</body>
+</html>
